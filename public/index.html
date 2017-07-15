@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="tasks">
+
+<head>
+    <title>Your Mechanic</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jqueryUI.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="appMainDiv">
+        <div id="taskApp" class="container" ng-controller="controllerMain">
+            <div class="row row1">
+                <div class="user">
+                    <span class="glyphicon glyphicon-th"></span>
+                    <span class="userName">Mike</span>
+                </div>
+                <div class="notification" ng-click="list=true">
+                    <span class="glyphicon glyphicon-th-list pointer"></span>
+                    <span class="notificationNumber pointer">
+                    <span class="greyCircle">
+                        <span class="redCircle"><span>{{taskListlen}}</span></span>
+                    </span>
+                    </span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="row row2">
+                <input type="text" class="taskName" placeholder="Type task name" ng-model="taskName" ng-focus="error_task = false">
+                <div class="errorMsg" ng-show="error_task">Enter a Task Name</div>
+                <div class="errorMsg" ng-show="error_task_done">Task Complete</div>
+            </div>
+
+            <div id="container">
+                <div class="circle"></div>
+                <div class="clock-bg glyphicon glyphicon-time"></div>
+                <div class="redCircle-bg"></div>
+                <div class="timerTxt">{{timer}}</div>
+                <button class="btn btn-success" ng-show="showTick" ng-click="startTimer()"><span class="glyphicon glyphicon-ok"></span></button>
+            </div>
+            <div class="row row4 pointer" ng-click="showCalendar()">
+                <span class="">Add Time</span>
+                <span class="clock-sm glyphicon glyphicon-time"></span>
+            </div>
+            <div class="ngview">
+                <div class="secondary calendar" ng-show="calendar">
+                    <div>
+                        <input type="text" class="timerInput" ng-cloak ng-model="timer">
+                        <span class="glyphicon glyphicon-calendar calendarImg"></span>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="datepicker"></div>
+                    <div class="buttons">
+                        <button class="btn btn-success" ng-click="addTask()">Set Date</button>
+                        <button class="btn-danger btn" ng-click="calendar=false">X</button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="secondary calendar" ng-show="list" ng-cloak>
+                    <div class="row row1">
+                        <div class="user">
+                            <span class="glyphicon glyphicon-th"></span>
+                            <span class="userName">Mike</span>
+                        </div>
+                        <div class="notification" ng-click="list=false">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                            <span class="glyphicon glyphicon-time"></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="tasklist" ng-repeat="task in taskData track by $index">
+                        <div class="{{task.status}}">
+                            <span class="{{task.priority}}"></span>
+                            <div class="task">
+                                <span class="name pointer" ng-click="additionalInfo($index)">{{task.taskName}}</span>
+                                <span class="pointer glyphicon glyphicon-triangle-bottom" ng-click="additionalInfo($index)"></span>
+                                <div class="clear"></div>
+                                <div id="{{$index}}" class="taskInfo hide">
+                                    <span class="date">Date: {{task.date}}</span>
+                                    <span class="priority">Status: {{task.status}}</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- load angular,bootstrap, jQuery via CDN -->
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.3.0-rc.1/angular-route.min.js"></script>
+    <script src="js/progressbar.min.js"></script>
+    <script src="js/myApp.js"></script>
+</body>
+
+</html>
